@@ -26,3 +26,4 @@ jobs:
         tags: true
         python: 3.6
         repo: vgrem/Office365-REST-Python-Client
+        skip :fault

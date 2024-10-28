@@ -66,3 +66,18 @@ setup(
         ]
     },
 )
+
+# 新增的开发者联系方式
+    project_urls={
+        "Bug Tracker": "https://github.com/vgrem/Office365-REST-Python-Client/issues",
+        "Documentation": "https://office365-python-client.readthedocs.io/",
+        "Source Code": "https://github.com/vgrem/Office365-REST-Python-Client",
+    },
+    # 依赖关系
+    dependency_links=[
+        "https://pypi.org/project/requests/",
+        "https://pypi.org/project/msal/",
+        "https://pypi.org/project/pytz/",
+        "https://pypi.org/project/typing-extensions/",
+    ],
+)

@@ -35,3 +35,16 @@ Roles:
 - SharePoint admin
 - Teams service admin
 - Users admin
+
+- # Ensure you have the necessary roles assigned to your account
+# You can use the Azure portal or PowerShell to assign these roles
+
+# Example PowerShell command to assign a role
+$role = Get-AzureADDirectoryRole | Where-Object { $_.DisplayName -eq "Global Reader" }
+Add-AzureADDirectoryRoleMember -ObjectId $role.ObjectId -RefObjectId <your-user-object-id>
+
+# After configuring the roles, you can proceed with running the tests
+$ pytest tests/  # Adjust the path to your test directory as needed
+
+# If you encounter any issues, make sure to check the logs for detailed error messages
+# and verify that your credentials and roles are correctly configured.

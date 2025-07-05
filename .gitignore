@@ -80,5 +80,5 @@ Pipfile
 Pipfile.lock
 
 
-# Self signed certificates
-examples/*.pem
+# Self signed certificates 1
+examples/*.pem 

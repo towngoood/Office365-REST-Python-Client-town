@@ -26,5 +26,43 @@ jobs:
         tags: true
         python: 3.6
         repo: vgrem/Office365-REST-Python-Client
+# 添加文档构建阶段（可选）
+- name: docs
+  if: branch = main
 
+jobs:
+  include:
+    # 文档构建任务
+    - stage: docs
+      python: 3.9
+      script:
+        - pip install sphinx
+        - cd docs && make html
+
+    # 代码质量检查任务
+    - stage: test
+      python: 3.9
+      script:
+        - pip install flake8
+        - flake8 office365
+
+    # 继续已有的部署任务
+    - stage: deploy
+      python: 3.6
+      deploy:
+        provider: pypi
+        username: vgrem
+        skip_existing: true
+        password:
+          secure: 6m1/PyNSzjHkZg4zNVjUePdNY3s/Aq/Ucsk69hKVpp5N3dgJGQQOyogwbGr27ezsbiKnK/Ek3AiUVftsWQhjc4PwZjMNAizQh5jt3pywWsghg5sA8rigKlZ+Fx1koAcmD6uxLiEZ83z42XQRyi3Ewsnjx+Hc6r1yQE07tK6AjMEtY/Vq03QU+cAQ8EA7QItulp+b5XEVythK/TVnfoIUxx1EkyMGsT6wjLO43kRnWWTy23dfV0EvgMLM4xXbEqcVRigWxoU2yUYGAbb3TwQ6WBAGBf+G2OdF46XiB5IgIyI/ik5F4+1LZpJUCLxynTT3NyRs3jtZ1t7Xv3xC9xTYT121bVut3D/79HHdvKf4yHMpI6Qxs3Si+3+iOM0G3uaPMcax8fskus7QTAnUDJrMP04y1qfT/3i+GMyYsIhLLnZjlLlHv85IT91OWqVjqkGxxUZa2oHiwyck2w0VOkKyWfIV7EdE2owlWrhW8ui/xMLEAaBvRmG2lyEM/mncJT4RwTbgqw/CUdVXDYbZc/cJzKDzqWS5e92Js/zyPWqYcxY9VM3WgcJP3YzcPbnxgL0bO8qj3uDlLuLvCL1e/x/fcktM4VtZAPK2/9vz1aJ/Ac9TDZTSy7Fi4oN02gfuOWoCHXbg74FflSlRa5Ug3pf9S7cpvxb2jRbiRPpG+AY/3rs=
+        on:
+          tags: true
+          python: 3.6
+          repo: vgrem/Office365-REST-Python-Client
+
+# 可选：全局环境变量
+env:
+  global:
+    - PIP_DISABLE_PIP_VERSION_CHECK=1
+    - PYTHONUNBUFFERED=1
 # this is a test yaml file

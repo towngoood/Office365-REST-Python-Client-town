@@ -200,4 +200,42 @@ namespace Office365RestClient
     {
         public int Id { get; set; }
     }  
+        // A method to update an existing list item in a SharePoint list
+        private static async Task UpdateListItemAsync(string listName, int itemId, object updatedItem)
+        {
+            var request = new HttpRequestMessage(
+                HttpMethod.Post,
+                baseAddress + $"web/lists/getbytitle('{listName}')/items({itemId})"
+            );
+
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Headers.Add("IF-MATCH", "*"); // Overwrite regardless of version
+            request.Headers.Add("X-HTTP-Method", "MERGE"); // Use MERGE for partial update
+
+            request.Content = new StringContent(JsonConvert.SerializeObject(updatedItem), Encoding.UTF8, "application/json");
+
+            var response = await httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            Console.WriteLine($"Item {itemId} updated successfully.");
+        }
+
+        // A method to delete a list item from a SharePoint list
+        private static async Task DeleteListItemAsync(string listName, int itemId)
+        {
+            var request = new HttpRequestMessage(
+                HttpMethod.Post,
+                baseAddress + $"web/lists/getbytitle('{listName}')/items({itemId})"
+            );
+
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Headers.Add("IF-MATCH", "*"); // Overwrite regardless of version
+            request.Headers.Add("X-HTTP-Method", "DELETE");
+
+            var response = await httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            Console.WriteLine($"Item {itemId} deleted successfully.");
+        }
+
 # test ovc

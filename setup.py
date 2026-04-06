@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python  config
 # -*- coding: utf-8 -*-
 import io
 from setuptools import setup, find_packages

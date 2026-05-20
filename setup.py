@@ -1,4 +1,4 @@
-#!/usr/bin/env python  config
+#!/usr/bin/env python  config intnetsh
 # -*- coding: utf-8 -*-
 import io
 from setuptools import setup, find_packages
